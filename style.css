@@ -1,0 +1,32 @@
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+svg {
+  display: block;
+  margin: 100px auto;
+}
+#btn {
+  background-color: red;
+  cursor: pointer;
+}
+
+.show {
+  stroke-dasharray: 550;
+  stroke-dashoffset: 550;
+  transform-origin: center;
+  transform: scale(1.2);
+  transition: all 0.5s;
+}
+
+.realShow {
+  animation: showAnimat 0.65s ease forwards;
+}
+@keyframes showAnimat {
+  100% {
+    stroke-dashoffset: 0;
+    transform: scale(1);
+  }
+}
