@@ -7,9 +7,9 @@ var btn = Snap.select("#btn");
 var mapPoints = map.node.getAttribute("d");
 var btnPoints = btn.node.getAttribute("d");
 
-var toFancy = function () {
-  btn.animate({ d: mapPoints }, 1000, mina.bounce);
-};
+// var toFancy = function () {
+//   btn.animate({ d: mapPoints }, 1000, mina.bounce);
+// };
 
 // var toSimple = function () {
 //   map.animate({ d: mapPoints }, 2000, mina.bounce, toFancy);
@@ -18,58 +18,57 @@ var toFancy = function () {
 // toFancy();
 
 ////////////
-const firstCity = document.getElementById("khorasan_n_");
-const secondCity = document.getElementById("hamedan_1_");
-const thirdCity = document.getElementById("alborz_1_");
-
-const citys = document.querySelectorAll(".selectinggg");
-
+const firstCity = document.getElementById("gilan_1_");
+// const secondCity = document.getElementById("hamedan_1_");
+// const thirdCity = document.getElementById("alborz_1_");
 const btnDom = document.getElementById("btn");
+const citys = document.querySelectorAll(".citys");
+
+//////////////
 
 btnDom.addEventListener("click", () => {
-  btn.animate({ d: mapPoints }, 8000, mina.bounce);
+  btn.animate({ d: mapPoints }, 7000, mina.ease);
   btnDom.setAttribute("fill", "none");
 
   setTimeout(() => {
-    firstCity.classList.add("realShow");
-    secondCity.classList.add("realShow");
-    thirdCity.classList.add("realShow");
+    firstCity.classList.add("show");
+    // secondCity.classList.add("show");
+    // thirdCity.classList.add("show");
   }, 600);
 
   citys.forEach((city, idx) => {
     city.addEventListener("animationend", (e) => {
       const currentCity = e.target;
       const nextCity = currentCity.nextElementSibling;
-
-      if (!nextCity.classList.contains("realShow")) {
-        nextCity.classList.add("realShow");
+      if (!nextCity.classList.contains("show") && nextCity.nodeName == "path") {
+        nextCity.classList.add("show");
       }
-
-      if (citys[citys.length - 1].classList.contains("realShow")) {
+      /////////////////////////////////////////////////////
+      if (idx === citys.length - 1) {
         citys.forEach((city2) => {
-          city2.setAttribute("opacity", +0.1);
-          city2.setAttribute("fill", generateRandomColor());
+          painting(city2);
+          city2.classList.remove("show");
+          city2.setAttribute("opacity", +0);
 
           const timerOpacity = setInterval(() => {
             city2.setAttribute(
               "opacity",
-              `${+city2.getAttribute("opacity") + 0.1}`
+              `${+city2.getAttribute("opacity") + 0.05}`
             );
 
-            console.log("inside of interval");
-            console.log(+city2.getAttribute("opacity"));
-
-            if (+city2.getAttribute("opacity") >= 0.9) {
+            if (+city2.getAttribute("opacity") >= +1) {
               clearInterval(timerOpacity);
-
-              console.log("interval cleared");
             }
-          }, 1800);
+          }, 100);
         });
       }
     });
   });
 });
+
+function painting(city2) {
+  city2.setAttribute("fill", generateRandomColor());
+}
 
 function generateRandomColor() {
   let letters = "0123456789ABCDEF";
@@ -79,3 +78,24 @@ function generateRandomColor() {
   }
   return color;
 }
+
+let bh = "";
+citys.forEach((city) => {
+  city.addEventListener("click", (e) => {
+    if (city.classList.contains("citys")) {
+      // console.log(e.target.id);
+
+      elementID = e.target.id;
+      elementNode = document.getElementById(elementID);
+      citys.forEach((city) => {
+        if (city !== elementNode) {
+          city.style.display = "none";
+          // city.setAttribute("opacity", 0);
+        }
+      });
+
+      var aaa = Snap.select("#" + e.target.id);
+      aaa.animate({ d: btnPoints }, 600, mina.linear);
+    }
+  });
+});

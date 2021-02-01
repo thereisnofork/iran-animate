@@ -9,24 +9,31 @@ svg {
   margin: 100px auto;
 }
 #btn {
-  background-color: red;
   cursor: pointer;
 }
 
-.show {
+.hide {
   stroke-dasharray: 550;
   stroke-dashoffset: 550;
   transform-origin: center;
-  transform: scale(1.2);
-  transition: all 0.5s;
+  transition: all ease 0.8s;
 }
 
-.realShow {
-  animation: showAnimat 0.65s ease forwards;
+.show {
+  transform: scale(1.1);
+  animation: showAnimat 0.1s ease forwards;
 }
 @keyframes showAnimat {
   100% {
     stroke-dashoffset: 0;
     transform: scale(1);
   }
+}
+
+.hide:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  transform-origin: center !important;
+  transition: all 0.5s ease !important;
+  cursor: pointer !important;
+  stroke-dashoffset: 0;
 }
