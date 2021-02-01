@@ -1,5 +1,5 @@
-var svg = document.getElementById("svgs");
-var s = Snap(svg);
+const svgs = document.getElementById("svgs");
+var s = Snap(svgs);
 
 var map = Snap.select("#map");
 var btn = Snap.select("#btn");
@@ -23,6 +23,8 @@ const firstCity = document.getElementById("gilan_1_");
 // const thirdCity = document.getElementById("alborz_1_");
 const btnDom = document.getElementById("btn");
 const citys = document.querySelectorAll(".citys");
+
+const use = document.getElementById("use");
 
 //////////////
 
@@ -99,3 +101,28 @@ citys.forEach((city) => {
     }
   });
 });
+
+// <-------------------------------------------->
+citys.forEach((city) => {
+  city.addEventListener("mouseenter", (e) => {
+    const cityNode = e.target.id;
+    const cityElement = document.getElementById(cityNode);
+
+    svgs.appendChild(cityElement);
+    // cityElement.classList.add("hoveredCity");
+
+    // const copyedNode = cityElement.cloneNode(true);
+
+    // svgs.prepend(copyedNode);
+    // use.setAttribute("xlink:href", `#${copyedNode.id}`);
+  });
+});
+// <-------------------------------------------->
+
+// copyedNode.addEventListener("mouseleave", (e) => {
+//   const cityNode = e.target.id;
+//   const mouseleftCitye = document.getElementById(cityNode);
+
+//   // mouseleftCitye.classList.remove("www");
+//   mouseleftCitye.remove();
+// });
